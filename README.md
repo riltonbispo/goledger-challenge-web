@@ -1,28 +1,36 @@
-# GoLedger Challenge
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-In this challenge you will create a web interface to a blockchain application. In this application you must implement a streming service-like interface, with artist, album, song and playlist registration.
+## Getting Started
 
-# Requirements
+First, run the development server:
 
-- Your application should be able to add/remove/edit and show all artists, albums, songs and playlists;
-- Use **React** (all UI libraries are allowed);
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
+```
 
-## Instructions
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-- Fork the repository [https://github.com/goledgerdev/goledger-challenge-web](https://github.com/goledgerdev/goledger-challenge-web)
-    - Fork it, do **NOT** clone it, since you will need to send us your forked repository
-    - If you **cannot** fork it, create a private repository and give access to `samuelvenzi` and `andremacedopv`.
-- Create an web application using React. You will implement the basic operations provided by the API, which are `Create`, `Update`, `Delete` and `Search`.
-- Improve your application with a beautiful UI.
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-## Server
+This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-The data are obtained using a rest server at this address: `http://ec2-54-87-223-191.compute-1.amazonaws.com`
+## Learn More
 
-Also, a Swagger with the endpoints specifications for the operations is provided at this address: `http://ec2-54-87-223-191.compute-1.amazonaws.com/api-docs/`.
+To learn more about Next.js, take a look at the following resources:
 
-Tip: execute each operation in the Swagger for information on payload format and endpoint addresses.
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-## Complete the challenge
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-To complete the challenge, you must send us the link to your forked repository with the code of your application. Please, provide instructions to execute the code.
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
