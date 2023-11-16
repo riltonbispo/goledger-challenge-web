@@ -9,13 +9,7 @@ import MenuIcon from '@mui/icons-material/Menu'
 import Toolbar from '@mui/material/Toolbar'
 import { Logo } from './style'
 import Link from 'next/link'
-import {
-  Button,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemText,
-} from '@mui/material'
+import { Button, List, ListItem } from '@mui/material'
 
 interface Props {
   window?: () => Window
