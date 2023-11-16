@@ -8,15 +8,21 @@ import IconButton from '@mui/material/IconButton'
 import MenuIcon from '@mui/icons-material/Menu'
 import Toolbar from '@mui/material/Toolbar'
 import { Logo } from './style'
-import Menu from './Menu'
-import { Button, Link } from '@mui/material'
+import Link from 'next/link'
+import {
+  Button,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+} from '@mui/material'
 
 interface Props {
   window?: () => Window
 }
 
 const drawerWidth = 240
-export const navItems = ['Home', 'Category', 'About', 'Contact']
+export const navItems = ['artists', 'albuns', 'songs', 'playlists']
 
 export default function DrawerAppBar(props: Props) {
   const { window } = props
@@ -36,6 +42,7 @@ export default function DrawerAppBar(props: Props) {
         sx={{
           boxShadow: 'none',
           borderBottom: '1px solid #e2e8f0',
+          backgroundColor: 'white',
         }}
       >
         <Toolbar
@@ -43,6 +50,7 @@ export default function DrawerAppBar(props: Props) {
             justifyContent: 'space-between',
             backgroundColor: 'white',
           }}
+          className="container"
         >
           <Logo src="/goledger.png" alt="" />
           <IconButton
@@ -56,7 +64,7 @@ export default function DrawerAppBar(props: Props) {
           </IconButton>
           <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
             {navItems.map((item) => (
-              <Link key={item} href={`#${item.toLowerCase()}`}>
+              <Link key={item} href={`/${item.toLowerCase()}`}>
                 <Button sx={{ color: '#4a5568' }}>{item}</Button>
               </Link>
             ))}
@@ -79,6 +87,22 @@ export default function DrawerAppBar(props: Props) {
       >
         <Menu />
       </Drawer>
+    </Box>
+  )
+}
+
+const Menu = () => {
+  return (
+    <Box sx={{ textAlign: 'center' }}>
+      <List>
+        {navItems.map((item) => (
+          <ListItem key={item}>
+            <Link href={`/${item.toLowerCase()}`} style={{ width: '100%' }}>
+              <Button sx={{ color: '#4a5568', width: '100%' }}>{item}</Button>
+            </Link>
+          </ListItem>
+        ))}
+      </List>
     </Box>
   )
 }
