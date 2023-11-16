@@ -1,4 +1,6 @@
-import React from 'react'
+'use client'
+
+import React, { useState } from 'react'
 
 import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
@@ -12,9 +14,19 @@ type ArtistCardProps = {
   title: string
   about: string
   id: string
+  deleteAction: (id: string) => void
+  updateAction: (bio: string, id: string) => void
 }
 
-const ArtistCard = ({ title, about }: ArtistCardProps) => {
+const ArtistCard = ({
+  title,
+  about,
+  id,
+  deleteAction,
+  updateAction,
+}: ArtistCardProps) => {
+  const [inputBio, setInputBio] = useState('')
+
   return (
     <Box
       style={{
@@ -31,25 +43,32 @@ const ArtistCard = ({ title, about }: ArtistCardProps) => {
         }}
       >
         <CardContent>
-          <TextField
-            required
-            id="standard-required"
-            label="Name"
-            defaultValue={title}
-            variant="standard"
-          />
-          <Typography variant="body2" sx={{ marginTop: '2rem' }}>
-            {about}
+          <Typography variant="h5" component="div">
+            {title}
           </Typography>
+
+          <TextField
+            label="About"
+            id="outlined-multiline-static"
+            multiline
+            fullWidth
+            sx={{ marginTop: '2rem' }}
+            defaultValue={about}
+            variant="standard"
+            onChange={(e) => setInputBio(e.target.value)}
+          />
         </CardContent>
         <CardActions
           sx={{
             justifyContent: 'flex-end',
-            borderTop: '1px solid rgba(0, 0, 0, 0.12)',
           }}
         >
-          <Button color="error">Delete</Button>
-          <Button variant="outlined">Save</Button>
+          <Button color="error" onClick={() => deleteAction(id)}>
+            Delete
+          </Button>
+          <Button variant="outlined" onClick={() => updateAction(inputBio, id)}>
+            Save
+          </Button>
         </CardActions>
       </Card>
     </Box>
