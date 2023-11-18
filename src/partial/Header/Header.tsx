@@ -79,19 +79,27 @@ export default function DrawerAppBar(props: Props) {
           },
         }}
       >
-        <Menu />
+        <Menu setMobileOpen={setMobileOpen} />
       </Drawer>
     </Box>
   )
 }
 
-const Menu = () => {
+const Menu = ({
+  setMobileOpen,
+}: {
+  setMobileOpen: React.Dispatch<React.SetStateAction<boolean>>
+}) => {
   return (
     <Box sx={{ textAlign: 'center' }}>
       <List>
         {navItems.map((item) => (
           <ListItem key={item}>
-            <Link href={`/${item.toLowerCase()}`} style={{ width: '100%' }}>
+            <Link
+              href={`/${item.toLowerCase()}`}
+              style={{ width: '100%' }}
+              onClick={() => setMobileOpen(false)}
+            >
               <Button sx={{ color: '#4a5568', width: '100%' }}>{item}</Button>
             </Link>
           </ListItem>
