@@ -1,56 +1,50 @@
 import axios from 'axios'
 import { ArtistType } from './artistsApi'
 
-export interface AlbumType {
+export type SongArtist = {
+  '@assetType': string
+  '@key': string
+}
+
+export type SongAlbum = {
+  '@assetType': string
+  '@key': string
+}
+
+export interface SongType {
   '@assetType': string
   '@key': string
   '@lastTouchBy': string
   '@lastTx': string
-  artist: ArtistType
-  rating: number
-  releaseDate: string
+  album: SongAlbum
+  artists: SongArtist[]
+  explicit: boolean
   title: string
 }
 
-export const getAlbuns = async () => {
+export const getSongs = async () => {
   try {
     const response = await axios.post(
       'http://ec2-54-87-223-191.compute-1.amazonaws.com/api/query/search',
       {
         query: {
           selector: {
-            '@assetType': 'album',
+            '@assetType': 'song',
           },
         },
       },
     )
     return response.data.result
   } catch (err) {
-    console.error('Erro ao buscar albuns:', err)
+    console.log('Erro ao buscar songs:', err)
   }
 }
 
-export const getUnicAlbum = async (id: string) => {
-  try {
-    const response = await axios.post(
-      'http://ec2-54-87-223-191.compute-1.amazonaws.com/api/query/readAsset',
-      {
-        key: {
-          '@assetType': 'album',
-          '@key': id,
-        },
-      },
-    )
-    return response.data
-  } catch (err) {
-    console.log('Erro ao buscar album:', err)
-  }
-}
-
-export const createAlbum = async (
-  artistKey: string,
-  rating: number,
+export const createSong = async (
   title: string,
+  artists: ArtistType[],
+  album: string,
+  explicit: boolean,
 ) => {
   try {
     const response = await axios.post(
@@ -58,56 +52,61 @@ export const createAlbum = async (
       {
         asset: [
           {
-            '@assetType': 'album',
-            artist: {
-              '@assetType': 'artist',
-              '@key': artistKey,
-            },
-            rating,
-            releaseDate: '2023-11-14T13:51:00Z',
+            '@assetType': 'song',
             title,
+            artists: artists.map((artist) => ({
+              '@assetType': 'artist',
+              '@key': artist['@key'],
+            })),
+            album: {
+              '@assetType': 'album',
+              '@key': album,
+            },
+            explicit,
           },
         ],
       },
     )
     return response
   } catch (err) {
-    console.error('Erro ao criar album:', err)
+    console.log('Não foi possivel criar song: ', err)
   }
 }
 
-export const deleteAlbum = async (id: string) => {
+export const deleteSong = async (id: string) => {
   try {
     const response = await axios.post(
       'http://ec2-54-87-223-191.compute-1.amazonaws.com/api/invoke/deleteAsset',
       {
         key: {
-          '@assetType': 'album',
+          '@assetType': 'song',
           '@key': id,
         },
       },
     )
     return response
   } catch (err) {
-    alert('Não é possivel deletar esse album')
+    alert('Não é possivel deletar esse artista')
   }
 }
 
-export const updateAlbum = async (id: string, rating: number) => {
+export const updateSong = async (id: string, album: string) => {
   try {
     const response = await axios.put(
       'http://ec2-54-87-223-191.compute-1.amazonaws.com/api/invoke/updateAsset',
       {
         update: {
-          '@assetType': 'album',
+          '@assetType': 'song',
           '@key': id,
-          rating,
-          releaseDate: '2023-11-14T13:51:00Z',
+          album: {
+            '@assetType': 'album',
+            '@key': album,
+          },
         },
       },
     )
     return response
   } catch (err) {
-    alert('Não é possivel editar esse album')
+    alert('Não é possivel editar esse artista')
   }
 }

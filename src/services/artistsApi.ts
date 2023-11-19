@@ -27,6 +27,23 @@ export const getArtists = async () => {
   }
 }
 
+export const getUnicArtist = async (id: string) => {
+  try {
+    const response = await axios.post(
+      'http://ec2-54-87-223-191.compute-1.amazonaws.com/api/query/readAsset',
+      {
+        key: {
+          '@assetType': 'song',
+          '@key': id,
+        },
+      },
+    )
+    return response
+  } catch (err) {
+    console.log(`Não foi possive achar: ${id}`)
+  }
+}
+
 export const createArtist = async (name: string, about: string) => {
   try {
     const response = await axios.post(
